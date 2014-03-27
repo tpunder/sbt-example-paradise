@@ -9,8 +9,9 @@ object helloMacro {
   def compileTimeAnnotationsImpl[T: c.WeakTypeTag](c: Context): c.Expr[String] = {
     import c.universe._
     val tpe: c.Type = c.weakTypeOf[T]
-    val s: String = tpe.declaration(newTermName("ignoredField3")).annotations.toString
-    
+    val sym: Symbol = tpe.declaration(newTermName("ignoredField3"))
+    sym.typeSignature
+    val s: String = sym.annotations.toString
     c.Expr[String](Literal(Constant(s)))
   }
 }
